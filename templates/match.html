@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files and Select Columns</title>
+</head>
+<body>
+    <h1>Upload Files and Select Columns</h1>
+
+    <form action="{{ url_for('results') }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="file1" value="{{ file1 }}">
+        <input type="hidden" name="file2" value="{{ file2 }}">
+
+        <label for="columns1">Select columns for file 1 (hold Ctrl/Cmd to select multiple):</label>
+        <select name="columns1" multiple>
+            {% for column in columns1 %}
+                <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="columns2">Select columns for file 2 (hold Ctrl/Cmd to select multiple):</label>
+        <select name="columns2" multiple>
+            {% for column in columns2 %}
+                <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="match_type">Match Type:</label>
+        <select name="match_type">
+            <option value="exact">Exact</option>
+            <option value="fuzzy">Fuzzy</option>
+        </select><br><br>
+
+        <label for="threshold">Fuzzy Match Threshold:</label>
+        <input type="number" name="threshold" value="90"><br><br>
+
+        <label for="include_missing">
+            <input type="checkbox" name="include_missing"> Include Missing Values
+        </label><br><br>
+
+        <input type="submit" value="Match Data">
+    </form>
+</body>
+</html>

@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #020314;
+            --secondary: #2de02a;
+            --background: #f9fafb;
+            --surface: #ffffff;
+            --on-surface: #1f2937;
+            --on-surface-variant: #4b5563;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+            color: var(--on-surface);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        thead {
+            background-color: var(--primary);
+            color: var(--surface);
+        }
+
+        th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr:nth-child(4n+1), tbody tr:nth-child(4n+2) {
+            background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        .dataset-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .match-score {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Match Results</h1>
+        <div class="card">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dataset Name</th>
+                            <th>Match Score</th>
+                            {% for column in columns1 %}
+                                <th>{{ column }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in results %}
+                            <tr>
+                                <td class="dataset-name">{{ file1 }}</td>
+                                <td class="match-score" rowspan="2">{{ result['score'] }}%</td>
+                                {% for column in columns1 %}
+                                    <td>{{ result['data1'].get(column, '') }}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="dataset-name">{{ file2 }}</td>
+                                {% for column in columns1 %}
+                                    <td>{{ result['data2'].get(column, '') }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
